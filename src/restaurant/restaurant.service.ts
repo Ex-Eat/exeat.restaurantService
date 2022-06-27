@@ -20,6 +20,10 @@ export class RestaurantService {
     return await this.restaurantModel.find().exec();
   }
 
+  async findAllByUser(userId: string): Promise<RestaurantDocument[]> {
+    return await this.restaurantModel.find({ owner_id: userId }).exec();
+  }
+
   async findOne(id: string): Promise<RestaurantDocument> {
     return await this.restaurantModel.findById(id).exec();
   }
@@ -39,5 +43,11 @@ export class RestaurantService {
 
   async findWithMenus(id: string): Promise<RestaurantDocument> {
     return await this.restaurantModel.findById(id).populate('menus').exec();
+  }
+
+  async addArticle(id: string, article: any): Promise<RestaurantDocument> {
+    let restaurant = await this.restaurantModel.findById(id).exec();
+    restaurant.articles = [...restaurant.articles, article];
+    return await restaurant.save();
   }
 }

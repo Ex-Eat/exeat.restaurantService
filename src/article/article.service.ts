@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Connection, Model } from 'mongoose';
-import { Article } from './article.schema';
+import { Article, ArticleDocument } from './article.schema';
 
 @Injectable()
 export class ArticleService {
   constructor(
-    @InjectModel(Article.name) private articleModel: Model<Article>,
+    @InjectModel(Article.name) private articleModel: Model<ArticleDocument>,
     @InjectConnection() private readonly connection: Connection,
   ) {}
 
@@ -20,7 +20,10 @@ export class ArticleService {
   }
 
   async findOne(id: string): Promise<Article> {
-    return await this.articleModel.findById(id).exec();
+    return await this.articleModel
+      .findById(id)
+      .populate('restaurant_id')
+      .exec();
   }
 
   async update(id: string, article: Article): Promise<Article> {

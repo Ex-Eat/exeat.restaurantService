@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import {config} from "./config";
+import { config } from './config';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -17,7 +17,9 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return "Hey, ' + config.APP_NAME + ' is alive."', () => {
-      expect(appController.isAlive()).toBe('Hey, ' + config.APP_NAME + ' is alive.');
+      expect(appController.isAlive()).toBe(
+        'Hey, ' + config.APP_NAME + ' is alive.',
+      );
     });
   });
 });

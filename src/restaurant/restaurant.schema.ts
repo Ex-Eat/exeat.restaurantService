@@ -8,47 +8,81 @@ export type RestaurantDocument = Restaurant & Document;
 
 @Schema()
 export class Restaurant {
-  @Prop()
-  restaurant_name: string;
+  _id: string;
 
-  @Prop()
+  @Prop({ required: true })
+  owner_id: number;
+
+  @Prop({
+    required: true,
+    unique: true,
+    type: String,
+  })
+  name: string;
+
+  @Prop({
+    type: String,
+  })
+  description: string;
+
+  @Prop({
+    type: [String],
+  })
+  keywords: string[];
+
+  @Prop({
+    required: true,
+    type: String,
+  })
   professional_mail: string;
 
-  @Prop()
+  @Prop({
+    required: true,
+    unique: true,
+    type: String,
+  })
   phone_number: string;
 
-  @Prop()
-  terms_of_use: boolean;
+  @Prop({
+    required: true,
+    type: String,
+  })
+  'terms_of_use': boolean;
 
   @Prop({
     type: {
       lat: Number,
       lng: Number,
       address: String,
-      name: String,
     },
+    unique: true,
   })
   location: {
     lat: number;
     lng: number;
     address: string;
-    name: string;
   };
 
-  @Prop()
+  @Prop({
+    type: String,
+  })
   patronage_code: string;
 
-  @Prop()
+  @Prop({
+    type: Boolean,
+  })
   notifiction: boolean;
 
-  @Prop()
+  @Prop({
+    type: String,
+  })
   restaurant_image: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Menu' })
-  menus: [Menu];
+  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Menu' })
+  menus: Menu[];
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Article' })
-  articles: [Article];
+  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Article' })
+  articles: Article[];
 }
 
 export const RestaurantSchema = SchemaFactory.createForClass(Restaurant);

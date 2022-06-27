@@ -7,17 +7,17 @@ export type MenuDocument = Menu & Document;
 
 @Schema()
 export class Menu {
-  @Prop()
+  @Prop({ required: true, unique: true, type: String })
   name: string;
 
   @Prop()
   menu_image: string;
 
-  @Prop()
+  @Prop({ required: true, type: String })
   price: number;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Article' })
-  articles: [Article];
+  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Article' })
+  articles: Article[];
 }
 
 export const MenuSchema = SchemaFactory.createForClass(Menu);
