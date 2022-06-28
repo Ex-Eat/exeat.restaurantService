@@ -8,11 +8,15 @@ import { HttpService } from '@nestjs/axios';
 import { lastValueFrom, map } from 'rxjs';
 import { Article } from 'src/article/article.schema';
 import { Menu } from 'src/menu/menu.schema';
+import { MenuService } from 'src/menu/menu.service';
+import { ArticleService } from 'src/article/article.service';
 
 @Controller('restaurant')
 export class RestaurantController {
   constructor(
     private _service: RestaurantService,
+    private _menuService: MenuService,
+    private _articleService: ArticleService,
     private _httpService: HttpService,
   ) {}
 
@@ -104,6 +108,16 @@ export class RestaurantController {
 
   @MessagePattern({ cmd: 'restaurant/delete' })
   async delete(data: { id: string; authorization: string }): Promise<any> {
+    const restaurant = await this._service.findOne(data.id);
+
+    for (const menuId of restaurant.menus) {
+      await this._menuService.delete(menuId.toString());
+    }
+
+    for (const articleId of restaurant.articles) {
+      await this._articleService.delete(articleId.toString());
+    }
+
     return this._service.delete(data.id);
   }
 
