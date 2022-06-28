@@ -1,18 +1,21 @@
 import { Body, Controller, UsePipes, ValidationPipe } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
-import { config } from '../config';
 import { ICreateRestaurantDto } from './restaurant.dto';
 import { Restaurant } from './restaurant.schema';
 import { RestaurantService } from './restaurant.service';
 import { HttpService } from '@nestjs/axios';
 import { lastValueFrom, map } from 'rxjs';
-import { Article } from 'src/article/article.schema';
-import { Menu } from 'src/menu/menu.schema';
+import {ArticleService} from "../article/article.service";
+import {MenuService} from "../menu/menu.service";
+import {Menu} from "../menu/menu.schema";
+import {Article} from "../article/article.schema";
 
 @Controller('restaurant')
 export class RestaurantController {
   constructor(
     private _service: RestaurantService,
+    private _menuService: MenuService,
+    private _articleService: ArticleService,
     private _httpService: HttpService,
   ) {}
 
@@ -22,8 +25,8 @@ export class RestaurantController {
   }
 
   @MessagePattern({ cmd: 'restaurant/findone' })
-  async getOne(data: { id: string }): Promise<any> {
-    return this._service.findOne(data.id);
+  async getOne(data: { id: string }): Promise<Restaurant> {
+    return await this._service.findOne(data.id);
   }
 
   @MessagePattern({ cmd: 'restaurant/findallbyuser' })

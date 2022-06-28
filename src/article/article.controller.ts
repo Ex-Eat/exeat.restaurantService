@@ -14,10 +14,10 @@ export class ArticleController {
   ) {}
 
   @MessagePattern({ cmd: 'article/findallfromrestaurant' })
-  async findAll(data: { id: string }): Promise<any> {
+  async findAll(data: { restaurantId: string }): Promise<any> {
     return (
       await (
-        await this._restaurantService.findOne(data.id)
+        await this._restaurantService.findOne(data.restaurantId)
       ).populate('articles')
     ).articles;
   }

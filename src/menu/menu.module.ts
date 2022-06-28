@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import {forwardRef, Module} from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ArticleModule } from 'src/article/article.module';
 import { ArticleService } from 'src/article/article.service';
@@ -11,8 +11,8 @@ import { MenuService } from './menu.service';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Menu.name, schema: MenuSchema }]),
-    RestaurantModule,
-    ArticleModule,
+    forwardRef(() => RestaurantModule),
+    forwardRef(() => ArticleModule),
   ],
   controllers: [MenuController],
   providers: [MenuService],

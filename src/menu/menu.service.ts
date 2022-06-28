@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
-import { Connection, Model } from 'mongoose';
+import { Connection, Model, Types} from 'mongoose';
 import { Menu } from './menu.schema';
 
 @Injectable()
@@ -21,6 +21,10 @@ export class MenuService {
 
   async findOne(id: string): Promise<Menu> {
     return await this.MenuModel.findById(id).exec();
+  }
+
+  async findByRestaurantId(_id: string): Promise<Menu[]> {
+    return await this.MenuModel.find({ restaurantId: new Types.ObjectId(_id) }).populate('articles').exec();
   }
 
   async update(id: string, menu: Menu): Promise<Menu> {

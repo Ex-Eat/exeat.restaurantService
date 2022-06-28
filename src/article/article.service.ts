@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
-import { Connection, Model } from 'mongoose';
+import {Connection, Model, Types} from 'mongoose';
 import { Article, ArticleDocument } from './article.schema';
 
 @Injectable()
@@ -21,6 +21,10 @@ export class ArticleService {
 
   async findOne(id: string): Promise<ArticleDocument> {
     return await this.articleModel.findById(id).populate('restaurantId').exec();
+  }
+
+  async findByRestaurantId(_id: string): Promise<Article[]> {
+    return await this.articleModel.find({ restaurantId: new Types.ObjectId(_id) }).exec();
   }
 
   async update(id: string, article: Article): Promise<ArticleDocument> {

@@ -14,9 +14,9 @@ export class MenuController {
   ) {}
 
   @MessagePattern({ cmd: 'menu/findallfromrestaurant' })
-  async findAll(data: { id: string }): Promise<any> {
+  async findAll(data: { restaurantId: string }): Promise<any> {
     return (
-      await (await this._restaurantService.findOne(data.id)).populate('menus')
+      await (await this._restaurantService.findOne(data.restaurantId)).populate('menus')
     ).menus;
   }
 

@@ -71,7 +71,7 @@ export class Restaurant {
   @Prop({
     type: Boolean,
   })
-  notifiction: boolean;
+  notification: boolean;
 
   @Prop({
     type: String,
