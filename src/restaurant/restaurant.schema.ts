@@ -6,12 +6,12 @@ import { Menu } from '../menu/menu.schema';
 
 export type RestaurantDocument = Restaurant & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Restaurant {
-  _id: string;
+  _id: mongoose.Types.ObjectId;
 
   @Prop({ required: true })
-  owner_id: number;
+  globalUserId: number;
 
   @Prop({
     required: true,
@@ -34,20 +34,20 @@ export class Restaurant {
     required: true,
     type: String,
   })
-  professional_mail: string;
+  professionalMail: string;
 
   @Prop({
     required: true,
     unique: true,
     type: String,
   })
-  phone_number: string;
+  phoneNumber: string;
 
   @Prop({
     required: true,
     type: String,
   })
-  'terms_of_use': boolean;
+  termsOfUse: boolean;
 
   @Prop({
     type: {
@@ -66,7 +66,7 @@ export class Restaurant {
   @Prop({
     type: String,
   })
-  patronage_code: string;
+  patronageCode: string;
 
   @Prop({
     type: Boolean,
@@ -76,7 +76,7 @@ export class Restaurant {
   @Prop({
     type: String,
   })
-  restaurant_image: string;
+  restaurantImage: string;
 
   @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Menu' })
   menus: Menu[];

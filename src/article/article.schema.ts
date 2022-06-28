@@ -5,7 +5,7 @@ import { Restaurant } from 'src/restaurant/restaurant.schema';
 
 export type ArticleDocument = Article & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Article {
   @Prop({ required: true })
   name: string;
@@ -14,13 +14,13 @@ export class Article {
   description: string;
 
   @Prop()
-  article_image: string;
+  articleImage: string;
 
   @Prop({ required: true })
   price: number;
 
   @Prop({ type: MongSchema.Types.ObjectId, ref: 'Restaurant' })
-  restaurant_id: Restaurant;
+  restaurantId: Restaurant;
 
   @Prop({ type: [MongSchema.Types.ObjectId], ref: 'Menu' })
   menus: Menu[];

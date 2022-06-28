@@ -40,17 +40,17 @@ export class RestaurantController {
     let response;
 
     const restaurant = new Restaurant();
-    if (data.restaurant.terms_of_use) {
-      restaurant.terms_of_use = data.restaurant.terms_of_use;
+    if (data.restaurant.termsOfUse) {
+      restaurant.termsOfUse = data.restaurant.termsOfUse;
     } else {
       throw new Error('You need to accept the terms of use.');
     }
-    restaurant.owner_id = data.user.id;
+    restaurant.globalUserId = data.user.id;
     restaurant.name = data.restaurant.name;
     restaurant.description = data.restaurant.description;
     restaurant.keywords = data.restaurant.keywords;
-    restaurant.professional_mail = data.restaurant.professional_mail;
-    restaurant.phone_number = data.restaurant.phone_number;
+    restaurant.professionalMail = data.restaurant.professionalMail;
+    restaurant.phoneNumber = data.restaurant.phoneNumber;
     restaurant.articles = [];
     restaurant.menus = [];
 

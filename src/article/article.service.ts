@@ -10,29 +10,26 @@ export class ArticleService {
     @InjectConnection() private readonly connection: Connection,
   ) {}
 
-  async create(article: Article): Promise<Article> {
+  async create(article: Article): Promise<ArticleDocument> {
     const createdArticle = new this.articleModel(article);
     return await createdArticle.save();
   }
 
-  async findAll(): Promise<Article[]> {
+  async findAll(): Promise<ArticleDocument[]> {
     return await this.articleModel.find().exec();
   }
 
-  async findOne(id: string): Promise<Article> {
-    return await this.articleModel
-      .findById(id)
-      .populate('restaurant_id')
-      .exec();
+  async findOne(id: string): Promise<ArticleDocument> {
+    return await this.articleModel.findById(id).populate('restaurantId').exec();
   }
 
-  async update(id: string, article: Article): Promise<Article> {
+  async update(id: string, article: Article): Promise<ArticleDocument> {
     return await this.articleModel.findByIdAndUpdate(id, article, {
       new: true,
     });
   }
 
-  async delete(id: string): Promise<Article> {
+  async delete(id: string): Promise<ArticleDocument> {
     return await this.articleModel.findByIdAndRemove(id);
   }
 }
