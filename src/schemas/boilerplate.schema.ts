@@ -5,8 +5,8 @@ export type BoilerplateDocument = Boilerplate & Document;
 
 @Schema()
 export class Boilerplate {
-    @Prop()
-    name: string;
+  @Prop()
+  name: string;
 }
 
 export const BoilerplateSchema = SchemaFactory.createForClass(Boilerplate);
