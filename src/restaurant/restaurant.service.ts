@@ -25,7 +25,16 @@ export class RestaurantService {
   }
 
   async findOne(_id: string): Promise<RestaurantDocument> {
-    return await this.restaurantModel.findOne({ _id }).populate('menus').populate('articles').exec();
+    return await this.restaurantModel.findOne({ _id })
+        .populate({
+          path: 'menus',
+          populate: {
+            path: 'articles',
+            model: 'Article'
+          }
+        })
+        .populate('articles')
+        .exec();
   }
 
   async update(
