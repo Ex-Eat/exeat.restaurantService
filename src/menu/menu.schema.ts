@@ -16,7 +16,7 @@ export class Menu {
   @Prop()
   menuImage: string;
 
-  @Prop({ required: true, type: String })
+  @Prop({ required: true })
   price: number;
 
   @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Article' })
