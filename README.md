@@ -25,9 +25,13 @@ Ex'eat is a food delivery company.
 - exeat.statsService: 8086
 - exeat.patronageService: 8087
 
-
-
 ## Installation
+
+Generate an API key at https://myprojects.geoapify.com and create a file called .env in the root folder of the project with the following content (replace <GeneratedApiKey> with the api key you just generated).
+
+```env
+GEOCODING_API_KEY=<GeneratedApiKey>
+```
 
 ```bash
 $ npm install
@@ -62,20 +66,18 @@ $ npm run test:cov
 ## Run Docker in backend development env.
 
 ```bash
-# compose 
+# compose
 $ docker-compose up -d --build
 ```
-
 
 ## Run Docker in frontend development env.
 
 > uncomment the lines about this MS in the docker-compose.yml
 
 ```bash
-# compose 
+# compose
 $ docker-compose up -d --build
 ```
-
 
 ## Merge branches
 
