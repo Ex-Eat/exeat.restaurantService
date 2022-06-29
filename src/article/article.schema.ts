@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Schema as MongSchema } from 'mongoose';
+import mongoose, { Document, Schema as MongSchema } from 'mongoose';
 import { Menu } from 'src/menu/menu.schema';
 import { Restaurant } from 'src/restaurant/restaurant.schema';
 
@@ -7,6 +7,8 @@ export type ArticleDocument = Article & Document;
 
 @Schema({ timestamps: true })
 export class Article {
+  _id: mongoose.Schema.Types.ObjectId;
+
   @Prop({ required: true })
   name: string;
 
