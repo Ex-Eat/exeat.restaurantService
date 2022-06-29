@@ -35,6 +35,11 @@ export class RestaurantController {
     return this._service.findAllByUser(data.user.id);
   }
 
+  @MessagePattern({ cmd: 'restaurant/search' })
+  async search(data: { query: string }): Promise<any> {
+    return this._service.search(data.query);
+  }
+
   @MessagePattern({ cmd: 'restaurant/create' })
   @UsePipes(new ValidationPipe({ transform: true }))
   async create(data: {

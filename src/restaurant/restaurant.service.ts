@@ -28,6 +28,23 @@ export class RestaurantService {
     return await this.restaurantModel.findById(id).exec();
   }
 
+  async search(query: string): Promise<RestaurantDocument[]> {
+    const regex = new RegExp(
+      query.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'),
+      'gi',
+    );
+    return await this.restaurantModel
+      .find({
+        $or: [
+          { name: { $regex: regex } },
+          { description: { $regex: regex } },
+          { keywords: { $regex: regex } },
+          // { location: { address: { $regex: regex } } },
+        ],
+      })
+      .exec();
+  }
+
   async update(
     id: string,
     restaurant: Restaurant,
