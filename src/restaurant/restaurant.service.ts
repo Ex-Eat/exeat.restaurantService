@@ -25,7 +25,16 @@ export class RestaurantService {
   }
 
   async findOne(id: string): Promise<RestaurantDocument> {
-    return await this.restaurantModel.findById(id).exec();
+    return await this.restaurantModel.findById(id)
+        .populate({
+          path: 'menus',
+          populate: {
+            path: 'articles',
+            model: 'Article'
+          }
+        })
+        .populate('articles')
+        .exec();
   }
 
   async search(query: string): Promise<RestaurantDocument[]> {
